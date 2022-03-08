@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+                  // JavaScript
+// const countDisplay = document.getElementById('count-display');
+// const incrementButton = document.getElementById('increment');
+// const decrementButton = document.getElementById('decrement');
+//
+// incrementButton.addEventListener('click', () => {
+//   const oldValue = Number(countDisplay.value);
+//   const newValue = oldValue + 1;
+//   countDisplay.value = newValue;
+// })
+//
+// decrementButton.addEventListener('click', () => {
+//   const oldValue = Number(countDisplay.value);
+//   const newValue = oldValue -1;
+//   countDisplay.value = newValue;
+// })
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+                  // Redux
+import store from './store';
+import * as actions from "./actions";
+import {bindActionCreators} from 'redux';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const countDisplay = document.getElementById('count-display');
+const incrementButton = document.getElementById('increment');
+const decrementButton = document.getElementById('decrement');
+
+const {inc, dec} = bindActionCreators(actions, store.dispatch)
+
+incrementButton.addEventListener('click', inc);
+decrementButton.addEventListener('click', dec);
+
+store.subscribe(() => countDisplay.value = store.getState());
